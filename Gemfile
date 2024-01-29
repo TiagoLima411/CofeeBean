@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rubocop-github', '~> 0.16'
   gem 'rubocop-rspec', '~> 2.2'
   gem 'shoulda-matchers'
+  gem 'webmock'
 end
 
 group :development do
