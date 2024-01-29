@@ -1,39 +1,43 @@
 # frozen_string_literal: true
 
+# spec/services/member_service/create_spec.rb
 require 'rails_helper'
 
 RSpec.describe MemberService::Create, type: :service do
-  let!(:service) { described_class.new(member) }
-  let(:member) { attributes_for(:member) }
-
   describe '#create' do
-    context 'when success' do
-      before do
-        service.create
+    let(:member) { build(:member) }
+
+    subject { described_class.new(member) }
+
+    context 'when member is valid' do
+      it 'creates a new member' do
+        expect { subject.create }.to change { subject.list.count }.by(1)
       end
 
-      it 'returns member instance' do
-        expect(service.member).to be_instance_of(Member)
+      it 'assigns an ID to the member' do
+        subject.create
+        expect(subject.member.id).to be_present
       end
 
-      it 'returns member list' do
-        expect(service.list.count).to eq(1)
+      it 'returns true' do
+        expect(subject.create).to eq(true)
       end
     end
 
-    context 'when error' do
-      let(:member) { attributes_for(:member, name: 'Ary') }
+    context 'when member is invalid' do
+      before { member.name = nil } # Making the member invalid
 
-      before do
-        service.create
+      it 'does not create a new member' do
+        expect { subject.create }.not_to change { subject.list.count }
       end
 
-      it 'errors is not nil' do
-        expect(service.errors).not_to be_nil
+      it 'returns false' do
+        expect(subject.create).to eq(false)
       end
 
-      it 'errors is not nil' do
-        expect(service.errors).to eq(['name is too short (minimum is 5 characters)'])
+      it 'logs validation errors' do
+        expect(Rails.logger).to receive(:error).at_least(:once)
+        subject.create
       end
     end
   end

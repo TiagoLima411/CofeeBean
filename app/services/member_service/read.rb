@@ -25,6 +25,10 @@ module MemberService
         initialize_members_if_needed
         @members
       end
+
+      def clear_members
+        @members = nil
+      end
     end
 
     attr_reader :member
