@@ -1,6 +1,10 @@
 {
   "name": "coffeebean",
   "private": true,
+  "engines": {
+    "node": "20.9.0",
+    "yarn": "1.22.19"
+  },
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
