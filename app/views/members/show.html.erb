@@ -1,0 +1,47 @@
+<div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+  <div class="card bg-glass">
+    <div class="card-body px-4 py-5 px-md-5">
+      <p id="notice"><%= notice %></p>
+      <p>
+        <strong>Name:</strong>
+        <%= @member.name %>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @member.email %>
+      </p>
+
+      <p>
+        <strong>IP:</strong>
+        <%= @client_info['ip'] %>
+      </p>
+
+      <p>
+        <strong>País:</strong>
+        <%= @client_info['country'] %>
+      </p>
+
+      <p>
+        <strong>Estado:</strong>
+        <%= @client_info['region'] %>
+      </p>
+
+      <p>
+        <strong>Cidade:</strong>
+        <%= @client_info['city'] %>
+      </p>
+
+      <p>
+        <strong>Localização:</strong>
+        <%= @client_info['loc'] %>
+      </p>
+
+      <p>
+        <strong>Cep:</strong>
+        <%= @client_info['postal'] %>
+      </p>
+
+    </div>
+  </div>
+</div>

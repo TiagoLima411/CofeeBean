@@ -1,0 +1,123 @@
+<!-- Section: Design Block -->
+<div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+  <div class="card bg-glass">
+    <div class="card-body px-4 py-5 px-md-5">
+      <%= form_for @member, html: { class: 'form' } do |form| %>
+        <% if @member.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@member.errors.count, "error") %> impediram este usuário de ser salvo::</h2>
+
+            <ul>
+              <% @member.errors.each do |error| %>
+                <li>
+                  <%= content_tag :i, nil, class: 'fas fa-exclamation-circle' %>
+                  <%= "#{error.attribute.to_s.humanize} #{error.message}" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-outline m-4">
+          <%= form.label :name, class: 'form-label' %>
+          <%= form.text_field :name, class: 'form-control' %>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline m-4">
+          <%= form.label :email, class: 'form-label' %>
+          <%= form.email_field :email, class: 'form-control' %>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline m-4 mb-5">
+          <%= form.label :password, class: 'form-label' %>
+          <%= form.password_field :password, class: 'form-control' %>
+        </div>
+        
+        <div class="form-outline mb-4">
+          <%= form.submit "SIGN UP", class: 'btn btn-primary btn-block mb-4 form-control' %>
+        </div>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>or sign up with:</p>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-google"></i>
+          </button>
+
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+          </button>
+
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Adicione esta div para ser o contêiner dos toasts -->
+<div id="toast-container" class="position-fixed bottom-0 end-0 p-3">
+</div>
+
+<script>
+  $(document).ready(function() {
+
+    $('#member_name').on('blur', validateName);
+    $('#member_email').on('blur', validateEmail);
+    $('#member_password').on('blur', validatePassword);
+
+    function validateName() {
+      var name = $('#member_name').val();
+
+      if (name.length < 5) {
+        showValidationError('Nome inválido! deve ter mais que 5 caracteres');
+      }
+    }
+
+    function validateEmail() {
+      var email = $('#member_email').val();
+
+      var emailRegex = /\A[A-Za-z0-9!#$%&'*+\-\/=?^_`{|}~.]{1,64}@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)*(?:\.[A-Za-z]{1,128})\z/;
+      if (!emailRegex.test(email)) {
+        showValidationError('Formato de email inválido');
+      }
+    }
+
+    function validatePassword() {
+      var password = $('#member_password').val();
+
+      var passwordRegex = /\A(?=.*[0-9].*[0-9])(?=.*[!@#$%^&*().,?":{}|<>].*[!@#$%^&*().,?":{}|<>])(?=.*[A-Z].*[A-Z])(?=.*[a-z].*[a-z])\S+\z/;
+
+      if (password.length < 10 || !passwordRegex.test(password)) {
+        showValidationError('Senha inválida! dever ter mínimo 10 caracteres, deve incluir pelo menos 2 dígitos, 2 caracteres especiais, 2 letras maiúsculas e 2 letras minúsculas');
+      }
+    }
+
+    function showValidationError(message) {
+
+      var toastHtml = '<div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">' +
+                      '<div class="d-flex">' +
+                      '<div class="toast-body">' +
+                      message +
+                      '</div>' +
+                      '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>' +
+                      '</div>' +
+                      '</div>';
+
+      // Adiciona o toast ao contêiner
+      $('#toast-container').append(toastHtml);
+
+      // Exibe o toast
+      var toast = new bootstrap.Toast($('#toast-container .toast:last'));
+      toast.show();
+    }
+  });
+</script>
