@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
     ipinfo_service = IpService::IpInfo.new(client_ip)
     client_info = ipinfo_service.info
 
-    # Armazene os dados relevantes na sessão ou em outro lugar conforme necessário
     session[:client_info] = client_info
   end
 end
