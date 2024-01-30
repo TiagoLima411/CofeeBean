@@ -11,13 +11,13 @@ Antes de iniciar, certifique-se de ter o RVM (Ruby Version Manager), Ruby e Rail
 1. Clone este repositório para o seu ambiente local:
 
     ```bash
-    git clone https://github.com/seu-usuario/nome-do-repositorio.git
+    git clone git@github.com:TiagoLima411/CofeeBean.git
     ```
 
 2. Navegue até o diretório do projeto:
 
     ```bash
-    cd nome-do-repositorio
+    cd CofeeBean
     ```
 
 3. Instale as dependências do projeto:
